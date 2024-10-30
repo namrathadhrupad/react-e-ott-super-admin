@@ -1,38 +1,153 @@
-.App {
+body{
+  background-color: black;
+}
+
+.nav-pills .nav-link:hover {
+ background-color: #00CB6C;
+ color: #000;
+ border-radius: 5px;
+ width: 200px;
+}
+
+.nav-item.active {
+  background-color: #00CB6C;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #E7E7E7;
+  color: #000;
+}
+
+/* button */
+.btn {
+  background-color: #00CB6C;
+}
+
+.custom-modal-body {
+  max-height: 500px;
+}
+
+.loginLogo {
+  position: absolute;
+  margin-top: -61px;
+}
+
+.login-page .loginSection h2 {
+  color: #fefcfc;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 34px;
+}
+
+.login-page .loginCenterSection {
+  flex-direction: column;
+  gap: 10px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.loginSection h2 {
+  position: absolute;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.loginSectionContainer {
+  height: 590px;
+  width: 480PX;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 0px 69px;
+  background-color: white;
+  border: 1px solid #020205;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.loginSection {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 80px;
+}
+
+.loginCenterSection {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 20px;
+  text-align: center;
+  margin-top: 50px;
 }
 
-.App-link {
-  color: #61dafb;
+.loginCenterSection span {
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 28.5px;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* components/TextField.css */
+.textFieldContainer {
+  width: 392px;
+  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.textField {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  border: 1px solid black;
+}
+
+.textField::placeholder {
+  color: black;
+  font-size: 16px;
+}
+
+.textFieldLabel {
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  display: flex;
+  color: black;
+  padding-bottom: 10px;
+}
+
+.textField:focus {
+  outline: none;
+}
+
+.login-btn {
+  width: 392px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.forgotPassword {
+  color: red;
+  width: 27.7%;
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 287px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.toggle-visibility-login{
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  user-select: none;
+  height: 15px;
+  width: 15px;
+  top: 240px;
 }
