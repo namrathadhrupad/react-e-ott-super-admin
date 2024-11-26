@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ContentOwner from "./contentOwner";
+import { getContentOwners } from "../APIs/APIS/common_API";
 
 function DashBoardContentOwner() {
   const [showModal, setShowModal] = useState(false);
+  const [contentOwnersList, setContentOwnersList] = useState([]);
 
   function handleClose() {
     setShowModal(false);
@@ -11,6 +13,20 @@ function DashBoardContentOwner() {
   function handleShow() {
     setShowModal(true);
   }
+
+  const loadContentOwners = async () => {
+    const data = await getContentOwners();
+    setContentOwnersList(data);
+  }
+
+  const fetchTableData = () => {
+    loadContentOwners();
+    handleClose();
+  }
+
+  useEffect ( () => {
+    loadContentOwners();
+  }, []);
 
   return (
     <div className="container-fluid">
@@ -41,7 +57,8 @@ function DashBoardContentOwner() {
             </thead>
 
             <tbody>
-              <tr>
+              {contentOwnersList.map (( owner, index) => (
+              <tr key={index}>
                 <td className="d-flex justify-content-center align-items-center">
                   <img
                     src="/images/contentownerlogo-red.svg"
@@ -51,7 +68,7 @@ function DashBoardContentOwner() {
                   Red
                 </td>
                 <td>20/03/2025</td>
-                <td>abcd-xyz@gmail.com.com</td>
+                <td>{owner.email}</td>
                 <td>
                   <span className="badge rounded-pill bg-success">Active</span>
                 </td>
@@ -72,6 +89,7 @@ function DashBoardContentOwner() {
                   {/* </span> */}
                 </td>
               </tr>
+              ))}
 
               <tr>
                 <td className="d-flex justify-content-center align-items-center">
@@ -169,7 +187,7 @@ function DashBoardContentOwner() {
           </table>
         </div>
 
-        <ContentOwner showModal={showModal} handleClose={handleClose} />
+        <ContentOwner showModal={showModal} handleClose={handleClose}  fetchTableData={fetchTableData} />
 
       </div>
     </div>
