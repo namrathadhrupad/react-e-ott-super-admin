@@ -1,41 +1,49 @@
 import React, { useState } from "react";
 import { Modal, Form } from "react-bootstrap";
+import { addContentOwner } from "../APIs/APIS/common_API";
 
-function ContentOwner({ handleClose, showModal }) {
+function ContentOwner({ handleClose, showModal, fetchTableData }) {
   
   const initialValues = {
     email: "",
   };
 
   const [formData, setFormData] = useState(initialValues);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [errors, setErrors] = useState({});
 
   function handleChange(e) {
-    const { name, value } = e.target;
-
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   }
 
-  function handleSelection(selectedOption) {
-    setFormData({
-      ...formData,
-      status: selectedOption.value,
-    });
-  }
+  async function validationForm() {
+    const errors = {};
 
-  function handleClick(e) {
-    e.preventDefault();
-  }
+    if (formData.email === "") {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+      setErrors(errors);
+      return errors;
+    }
 
-  function handleCloseConfirm() {
-    setShowConfirmModal(false);
-  }
-
-  function handleShowConfirm() {
-    setShowConfirmModal(true);
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const validationErrors = await validationForm();
+        if (Object.keys(validationErrors).length === 0) {
+            const res = await addContentOwner(formData);
+            if (res && res.errors) {
+                setErrors({
+                    formError: res.errors
+                });
+            } else {
+              fetchTableData();
+              handleClose();
+            }
+        }
   }
 
   return (
@@ -54,11 +62,20 @@ function ContentOwner({ handleClose, showModal }) {
            <Modal.Title >Add Content Owner Details</Modal.Title>
         </Modal.Header>
 
-         <Form onClick={handleClick}>
+         <Form onSubmit={handleSubmit}>
          <Modal.Body >
               <div className="custom-modal-body">
                 <label for="inputEmail4" className="form-label">Email Address</label>
-                <input type="email" className="form-control" id="inputEmail4" placeholder="Enter the Email Address"/>
+                <input 
+                  type="email" 
+                  className="form-control" 
+                  id="inputEmail4" 
+                  name="email"
+                  value={formData.email}
+                  placeholder="Enter the Email Address"
+                  onChange={handleChange}
+                  />
+                  {errors.email && <p className="text-danger">{errors.email}</p>}
               </div>
            </Modal.Body>
 
@@ -73,8 +90,7 @@ function ContentOwner({ handleClose, showModal }) {
                <button
                  type="Submit"
                  className="btn btn-success"
-                 onClick={() => handleShowConfirm()}
-               >
+                >
                  Save
                </button>
              </Modal.Footer>

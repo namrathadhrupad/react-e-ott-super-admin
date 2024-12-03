@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OttTextfieldSuperAdmin from "./OttTextFieldSuperAdmin";
-import { login } from "../pages/APIS/common_API";
+import { login } from "../APIs/APIS/common_API";
 
 function SuperadminLogin(){
 
